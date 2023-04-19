@@ -32,9 +32,9 @@ jobs:
                   git mv -v $f "${dirname}/${filename}.${tlc}.${ext}"
                 done
                 git add -v .
-                GIT_COMMITTER_DATE="$(date -R)" git commit -v --amend --no-edit --no-post-rewrite
+                GIT_COMMITTER_DATE="$(date -R)" git commit -v -m "chore(l10n): Rename l10n files"
                 #echo "Files renamed."
-                git push -v -f
+                git push -v
         #      else
         #        echo "No file to rename"
         #      fi
