@@ -24,6 +24,8 @@ jobs:
         #        echo "File(s) detected in push. Renaming..."
         #        git checkout $newrev
         #        for f in $(git ls-tree --name-only -r $newrev | grep -E ".*\.en\..*\..*"); do
+                git config --global user.name "github-actions"
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
                 for f in $(find -type f -iwholename "*/*.en.??.*"); do
                   filename=$(basename -- "$f" | sed 's/\.en\..*\..*$//')
                   tlc=$(echo $f | sed 's/^.*\.en\.\([^.]*\)\..*$/\1/')
@@ -43,6 +45,6 @@ jobs:
         #    echo "One of oldrev, newrev, or refname was empty"
         #  fi
         #done
-      env:
-        GIT_COMMITTER_NAME: github-actions
-        GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+      #env:
+      #  GIT_COMMITTER_NAME: github-actions
+      #  GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
