@@ -1,0 +1,7 @@
+files:
+  - source: '*.en.md*'
+    translation: /%original_path%/%file_name%.%two_letters_code%.%file_extension%
+  - source: '*.md'
+    translation: /%original_path%/%file_name%.%two_letters_code%.%file_extension%
+  - source: '*.en.json'
+    translation: /%original_path%/%file_name%.%two_letters_code%.%file_extension%
