@@ -14,42 +14,29 @@ jobs:
         ref: ${{ github.head_ref }}
     - name: Rename l10n files
       run: |
-        #while read oldrev newrev refname
-        #do
-        #  if [ -n oldrev && -n newrev && -n refname ]; then
-        #    echo "oldrev: $oldrev | newrev: $newrev | refname: $refname"
-        #    if [ "$refname" = "refs/heads/${{ github.head_ref }}" ]; then
-        #      git ls-tree --name-only -r $newrev | grep -E ".*\.en\..*\..*" #> /dev/null
-        #      if [ $? -eq 0 ]; then
-        #        echo "File(s) detected in push. Renaming..."
-        #        git checkout $newrev
-        #        for f in $(git ls-tree --name-only -r $newrev | grep -E ".*\.en\..*\..*"); do
-                git config --global user.name "github-actions"
-                git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                for f in $(find -type f -iwholename "*/*.en.??.*"); do
-                  filename=$(basename -- "$f" | sed 's/\.en\..*\..*$//')
-                  tlc=$(echo $f | sed 's/^.*\.en\.\([^.]*\)\..*$/\1/')
-                  ext=$(echo $f | sed 's/^.*\.\([^.]*\)$/\1/')
-                  dirname=$(dirname -- "$f")
-                  git mv -v $f "${dirname}/${filename}.${tlc}.${ext}"
-                done
-                git status --porcelain | grep -E "^R"
-                if [ $? -eq 0 ]; then
-                  git add -v --all
-                  GIT_COMMITTER_DATE="$(date -R)" git commit -v -m "chore(l10n): Rename l10n files"
-                  #echo "Files renamed."
-                  git push -v
-                else
-                  echo "Nothing to commit, working tree clean"
-                fi
-        #      else
-        #        echo "No file to rename"
-        #      fi
-        #    fi
-        #  else
-        #    echo "One of oldrev, newrev, or refname was empty"
-        #  fi
-        #done
+            renames=$(find -type f -iwholename "*/*.en.??.*")
+            if [ -n "$renames" ]; then
+              git config --global user.name "github-actions"
+              git config --global user.email "github-actions[bot]@users.noreply.github.com"
+              for f in $renames; do
+                filename=$(basename -- "$f" | sed 's/\.en\..*\..*$//')
+                tlc=$(echo $f | sed 's/^.*\.en\.\([^.]*\)\..*$/\1/')
+                ext=$(echo $f | sed 's/^.*\.\([^.]*\)$/\1/')
+                dirname=$(dirname -- "$f")
+                git mv -v $f "${dirname}/${filename}.${tlc}.${ext}"
+              done
+              git status --porcelain | grep -E "^R"
+              if [ $? -eq 0 ]; then
+                git add --all
+                GIT_COMMITTER_DATE="$(date -R)" git commit -v -m "chore(l10n): Rename l10n files"
+                #echo "Files renamed."
+                git push
+              else
+                echo "Nothing to commit, working tree clean"
+              fi
+            else
+              echo "No file to rename"
+            fi
       #env:
       #  GIT_COMMITTER_NAME: github-actions
       #  GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
