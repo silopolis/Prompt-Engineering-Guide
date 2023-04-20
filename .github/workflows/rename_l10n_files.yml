@@ -9,7 +9,7 @@ on:
 jobs:
   rename_l10n_files:
     concurrency:
-      group: ${{ github.head_ref }}
+      group: l10n_rename
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
