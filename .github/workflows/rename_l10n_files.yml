@@ -18,6 +18,7 @@ jobs:
             if [ -n "$renames" ]; then
               git config --global user.name "github-actions"
               git config --global user.email "github-actions[bot]@users.noreply.github.com"
+              git pull -v
               for f in $renames; do
                 filename=$(basename -- "$f" | sed 's/\.en\..*\..*$//')
                 tlc=$(echo $f | sed 's/^.*\.en\.\([^.]*\)\..*$/\1/')
