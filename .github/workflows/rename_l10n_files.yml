@@ -44,5 +44,5 @@ jobs:
         #  fi
         #done
       env:
-        GIT_COMMITTER_NAME: $GIT_AUTHOR_NAME
-        GIT_COMMITTER_EMAIL: $GIT_AUTHOR_EMAIL
+        GIT_COMMITTER_NAME: ${{ github.event.pusher.name }}
+        GIT_COMMITTER_EMAIL: ${{ github.event.pusher.email }}
