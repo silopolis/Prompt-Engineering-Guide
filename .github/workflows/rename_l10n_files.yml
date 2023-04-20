@@ -35,7 +35,7 @@ jobs:
                 done
                 git status --porcelain
                 if [ $? -eq 1 ]; then
-                  git add -v .
+                  git add -v --all
                   GIT_COMMITTER_DATE="$(date -R)" git commit -v -m "chore(l10n): Rename l10n files"
                   #echo "Files renamed."
                   git push -v
