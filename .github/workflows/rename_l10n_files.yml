@@ -29,7 +29,6 @@ jobs:
               if [ $? -eq 0 ]; then
                 git add --all
                 GIT_COMMITTER_DATE="$(date -R)" git commit -v -m "chore(l10n): Rename l10n files"
-                #echo "Files renamed."
                 git push
               else
                 echo "Nothing to commit, working tree clean"
@@ -37,6 +36,3 @@ jobs:
             else
               echo "No file to rename"
             fi
-      #env:
-      #  GIT_COMMITTER_NAME: github-actions
-      #  GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
