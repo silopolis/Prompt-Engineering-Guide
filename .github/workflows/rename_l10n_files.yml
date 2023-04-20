@@ -33,8 +33,8 @@ jobs:
                   dirname=$(dirname -- "$f")
                   git mv -v $f "${dirname}/${filename}.${tlc}.${ext}"
                 done
-                git status --porcelain
-                if [ $? -eq 1 ]; then
+                git status --porcelain | grep -E "^R"
+                if [ $? -eq 0 ]; then
                   git add -v --all
                   GIT_COMMITTER_DATE="$(date -R)" git commit -v -m "chore(l10n): Rename l10n files"
                   #echo "Files renamed."
