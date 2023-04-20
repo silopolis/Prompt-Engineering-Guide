@@ -10,7 +10,6 @@ jobs:
   rename_l10n_files:
     concurrency:
       group: ${{ github.head_ref }}
-      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
